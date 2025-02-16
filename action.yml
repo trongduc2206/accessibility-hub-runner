@@ -30,6 +30,7 @@ runs:
 
     - name: Run Axe
       run: run-axe.sh
+      shell: bash
       env:
         SERVICE_ID: ${{ inputs.service_id }}
         URL: ${{ inputs.url }}

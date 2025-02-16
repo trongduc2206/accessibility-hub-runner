@@ -1,7 +1,5 @@
 echo "Fetching rule IDs for service: $SERVICE_ID"
-RULE_IDS=$(curl -s "https://accessibility-hub-be.onrender.com/rules/$SERVICE_ID" | jq -r '.rule_ids | join(",")')
-
-echo "Rule IDs: $RULE_IDS"
+RULE_IDS=$(curl -s "https://accessibility-hub-be.onrender.com/rules/$SERVICE_ID")
 
 if [ -z "$RULE_IDS" ]; then
     echo "No rule IDs retrieved. Exiting..."

@@ -28,28 +28,8 @@ runs:
       shell: bash
       run: npx browser-driver-manager install chrome
 
-    - name: Fetch Rule IDs from API
-      id: fetch-rules
-      shell: bash
-      run: |
-        echo "Fetching rule IDs for service: ${{ inputs.service_id }}..."
-        RULE_IDS=$(curl -s "https://accessibility-hub-be.onrender.com/rules/test_svc")
-        
-        if [ -z "$RULE_IDS" ]; then
-          echo "No rule IDs retrieved. Exiting..."
-          exit 1
-        fi
-        
-        echo "Rule IDs: $RULE_IDS"
-        echo "RULE_IDS=$RULE_IDS" >> $GITHUB_ENV
-
-    - name: Run Axe CLI
-      id: run-axe
-      shell: bash
-      run: |
-        echo "Running Axe CLI on ${{ inputs.url }} with rules: $RULE_IDS"
-        AXE_OUTPUT=$(axe "${{ inputs.url }}" --chrome-options="no-sandbox,incognito" --rules "$RULE_IDS" --exit)
-        AXE_OUTPUT_CLEAN=$(echo "$AXE_OUTPUT" | tr '\n' ' ' | tr -d '\r')
-
-        echo "$AXE_OUTPUT"
-        echo "result=$AXE_OUTPUT_CLEAN" >> $GITHUB_OUTPUT
+    - name: Run Axe
+      run: run-axe.sh
+      env:
+        SERVICE_ID: ${{ inputs.service_id }}
+        URL: ${{ inputs.url }}

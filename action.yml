@@ -29,7 +29,7 @@ runs:
       run: npx browser-driver-manager install chrome
 
     - name: Run Axe
-      run: run-axe.sh
+      run: $GITHUB_ACTION_PATH/run-axe.sh
       shell: bash
       env:
         SERVICE_ID: ${{ inputs.service_id }}

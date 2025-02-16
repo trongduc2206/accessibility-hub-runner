@@ -1,0 +1,53 @@
+name: "Axe Accessibility Test"
+description: "Fetch rule IDs from API and run Axe CLI"
+author: "Your Name"
+inputs:
+  service_id:
+    description: "Service ID for fetching rule IDs"
+    required: true
+  url:
+    description: "Target URL to run accessibility tests on"
+    required: true
+outputs:
+  axe_output:
+    description: "Output from the Axe CLI command"
+    value: ${{ steps.run-axe.outputs.result }}
+runs:
+  using: "composite"
+  steps:
+    - name: Use Node.js 20.x
+      uses: actions/setup-node@v1
+      with:
+        node-version: 20.x
+
+    - name: Install Axe CLI
+      shell: bash
+      run: npm install @axe-core/cli -g
+
+    - name: Install Chrome Driver
+      shell: bash
+      run: npx browser-driver-manager install chrome
+
+    - name: Fetch Rule IDs from API
+      id: fetch-rules
+      shell: bash
+      run: |
+        echo "Fetching rule IDs for service: ${{ inputs.service_id }}..."
+        RULE_IDS=$(curl -s "https://accessibility-hub-be.onrender.com/rules/test_svc")
+        
+        if [ -z "$RULE_IDS" ]; then
+          echo "No rule IDs retrieved. Exiting..."
+          exit 1
+        fi
+        
+        echo "Rule IDs: $RULE_IDS"
+        echo "RULE_IDS=$RULE_IDS" >> $GITHUB_ENV
+
+    - name: Run Axe CLI
+      id: run-axe
+      shell: bash
+      run: |
+        echo "Running Axe CLI on ${{ inputs.url }} with rules: $RULE_IDS"
+        AXE_OUTPUT=$(axe "${{ inputs.url }}" --chrome-options="no-sandbox,incognito" --rules "$RULE_IDS" --exit)
+        echo "$AXE_OUTPUT"
+        echo "result=$AXE_OUTPUT" >> $GITHUB_OUTPUT

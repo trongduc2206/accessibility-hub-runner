@@ -28,6 +28,10 @@ runs:
       shell: bash
       run: npx browser-driver-manager install chrome
 
+    - name: Grant Execution Permission for Script
+      shell: bash
+      run: chmod +x $GITHUB_ACTION_PATH/run-axe.sh
+
     - name: Run Axe
       run: $GITHUB_ACTION_PATH/run-axe.sh
       shell: bash

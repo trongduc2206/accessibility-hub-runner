@@ -8,10 +8,10 @@ inputs:
   url:
     description: "Target URL to run accessibility tests on"
     required: true
-outputs:
-  axe_output:
-    description: "Output from the Axe CLI command"
-    value: ${{ steps.run-axe.outputs.result }}
+# outputs:
+#   axe_output:
+#     description: "Output from the Axe CLI command"
+#     value: ${{ steps.run-axe.outputs.result }}
 runs:
   using: "composite"
   steps:

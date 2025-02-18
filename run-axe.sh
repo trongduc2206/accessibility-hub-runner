@@ -9,7 +9,7 @@ fi
 echo "Rule IDs: $RULE_IDS"
 echo "RULE_IDS=$RULE_IDS" >> $GITHUB_ENV
 
-echo "Running Axe CLI on ${{ inputs.url }} with rules: $RULE_IDS"
+echo "Running Axe CLI on $URL with rules: $RULE_IDS"
 AXE_OUTPUT=$(axe "$URL" --chrome-options="no-sandbox,incognito" --rules "$RULE_IDS" --exit)
 AXE_OUTPUT_CLEAN=$(echo "$AXE_OUTPUT" | tr '\n' ' ' | tr -d '\r')
 

@@ -15,4 +15,4 @@ echo "Running Axe CLI on $URL with rules: $RULE_IDS"
 
 # echo "$AXE_OUTPUT"
 # echo "result=$AXE_OUTPUT_CLEAN" >> $GITHUB_OUTPUT
-axe "$URL" --chrome-options="headless,disable-gpu,no-sandbox,incognito,disable-dev-shm-usage,disable-software-rasterizer" --rules "$RULE_IDS" --exit
+axe "$URL" --chrome-options="headless,disable-gpu,no-sandbox,incognito" --rules "$RULE_IDS" --exit

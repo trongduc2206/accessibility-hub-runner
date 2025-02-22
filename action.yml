@@ -28,9 +28,25 @@ runs:
       shell: bash
       run: axe --version
 
-    - name: Install Chrome Driver
+    # - name: Install Chrome Driver
+    #   shell: bash
+    #   run: npx browser-driver-manager install chrome
+
+    - name: Install Chrome
       shell: bash
-      run: npx browser-driver-manager install chrome
+      run: |
+        wget -qO- https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb > chrome.deb
+        apt install -y ./chrome.deb
+        rm chrome.deb
+
+    - name: Install ChromeDriver
+      shell: bash
+      run: |
+        wget -qO- https://chromedriver.storage.googleapis.com/$(curl -s https://chromedriver.storage.googleapis.com/LATEST_RELEASE)/chromedriver_linux64.zip > chromedriver.zip
+        unzip chromedriver.zip
+        mv chromedriver /usr/local/bin/
+        chmod +x /usr/local/bin/chromedriver
+        rm chromedriver.zip
 
     - name: Grant Execution Permission for Script
       shell: bash

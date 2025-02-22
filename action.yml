@@ -28,25 +28,32 @@ runs:
       shell: bash
       run: axe --version
 
+    - name: Setup chrome
+      uses: browser-actions/setup-chrome@v1
+
+    - name: Check Chrome Version
+      shell: bash
+      run: chrome --version
+
     # - name: Install Chrome Driver
     #   shell: bash
     #   run: npx browser-driver-manager install chrome
 
-    - name: Install Chrome
-      shell: bash
-      run: |
-        wget -qO- https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb > chrome.deb
-        apt install -y ./chrome.deb
-        rm chrome.deb
+    # - name: Install Chrome
+    #   shell: bash
+    #   run: |
+    #     sudo wget -qO- https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb > chrome.deb
+    #     sudo apt install -y ./chrome.deb
+    #     rm chrome.deb
 
-    - name: Install ChromeDriver
-      shell: bash
-      run: |
-        wget -qO- https://chromedriver.storage.googleapis.com/$(curl -s https://chromedriver.storage.googleapis.com/LATEST_RELEASE)/chromedriver_linux64.zip > chromedriver.zip
-        unzip chromedriver.zip
-        mv chromedriver /usr/local/bin/
-        chmod +x /usr/local/bin/chromedriver
-        rm chromedriver.zip
+    # - name: Install ChromeDriver
+    #   shell: bash
+    #   run: |
+    #     sudo wget -qO- https://chromedriver.storage.googleapis.com/$(curl -s https://chromedriver.storage.googleapis.com/LATEST_RELEASE)/chromedriver_linux64.zip > chromedriver.zip
+    #     sudo unzip chromedriver.zip
+    #     sudo mv chromedriver /usr/local/bin/
+    #     sudo chmod +x /usr/local/bin/chromedriver
+    #     rm chromedriver.zip
 
     - name: Grant Execution Permission for Script
       shell: bash

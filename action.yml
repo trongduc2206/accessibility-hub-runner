@@ -24,6 +24,10 @@ runs:
       shell: bash
       run: npm install @axe-core/cli -g
 
+    - name: Check Axe CLI Version
+      shell: bash
+      run: axe --version
+
     - name: Install Chrome Driver
       shell: bash
       run: npx browser-driver-manager install chrome

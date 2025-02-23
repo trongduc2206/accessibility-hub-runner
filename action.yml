@@ -28,9 +28,9 @@ runs:
       shell: bash
       run: axe --version
 
-    - name: Install axe-core
-      shell: bash
-      run: npm install axe-core -g
+    # - name: Install axe-core
+    #   shell: bash
+    #   run: npm install axe-core -g
 
     - name: Setup chrome
       uses: browser-actions/setup-chrome@v1
@@ -69,3 +69,4 @@ runs:
       env:
         SERVICE_ID: ${{ inputs.service_id }}
         URL: ${{ inputs.url }}
+        AXE_SOURCE: $GITHUB_ACTION_PATH/axe.js

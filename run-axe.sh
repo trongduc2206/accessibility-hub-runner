@@ -9,10 +9,17 @@ fi
 echo "Rule IDs: $RULE_IDS"
 echo "RULE_IDS=$RULE_IDS" >> $GITHUB_ENV
 
-echo "Running Axe CLI on $URL with axe-source $GITHUB_ACTION_PATH/axe.js with rules: $RULE_IDS"
-# AXE_OUTPUT=$(axe "$URL" --chrome-options="no-sandbox,incognito" --rules "$RULE_IDS" --exit)
-# AXE_OUTPUT_CLEAN=$(echo "$AXE_OUTPUT" | tr '\n' ' ' | tr -d '\r')
+IFS=',' read -ra TOOLS_ARRAY <<< "$TOOLS"
 
-# echo "$AXE_OUTPUT"
-# echo "result=$AXE_OUTPUT_CLEAN" >> $GITHUB_OUTPUT
-axe "$URL" --chrome-options="headless,disable-gpu,no-sandbox,incognito" --rules "$RULE_IDS" --axe-source "$GITHUB_ACTION_PATH/axe.js" --verbose --exit
+for TOOL in "${TOOLS_ARRAY[@]}"; do
+    if [ "$TOOL" == "axe" ]; then
+        echo "Running Axe CLI on $URL with axe-source $GITHUB_ACTION_PATH/axe.js with rules: $RULE_IDS"
+        axe "$URL" --chrome-options="headless,disable-gpu,no-sandbox,incognito" --rules "$RULE_IDS" --axe-source "$GITHUB_ACTION_PATH/axe.js" --verbose --exit
+    elif [ "$TOOL" == "pa11y" ]; then
+        IGNORED_RULES=$(curl -s "https://accessibility-hub-be.onrender.com/ignore-pa11y-rules/$SERVICE_ID")
+        echo "Running Pa11y CLI on $URL with ignored rules: $IGNORED_RULES"
+        pa11y "$URL" --config "$GITHUB_ACTION_PATH/pa11y-config.json" --ignore "$IGNORED_RULES"
+    else
+        echo "Tool $TOOL is not supported. Skipping..."
+    fi
+done

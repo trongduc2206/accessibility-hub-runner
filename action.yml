@@ -8,6 +8,10 @@ inputs:
   url:
     description: "Target URL to run accessibility tests on"
     required: true
+  tools:
+    description: "Accessibility tool to use"
+    required: false
+    default: "axe"
 # outputs:
 #   axe_output:
 #     description: "Output from the Axe CLI command"
@@ -69,4 +73,5 @@ runs:
       env:
         SERVICE_ID: ${{ inputs.service_id }}
         URL: ${{ inputs.url }}
+        TOOLS: ${{ inputs.tools }}
         AXE_SOURCE: $GITHUB_ACTION_PATH/axe.js

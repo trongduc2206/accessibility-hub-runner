@@ -38,6 +38,8 @@ runs:
 
     - name: Setup chrome
       uses: browser-actions/setup-chrome@v1
+      with:
+        chrome-version: 136
 
     - name: Check Chrome Version
       shell: bash

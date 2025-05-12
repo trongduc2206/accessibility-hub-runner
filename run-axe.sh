@@ -14,7 +14,7 @@ IFS=',' read -ra TOOLS_ARRAY <<< "$TOOLS"
 for TOOL in "${TOOLS_ARRAY[@]}"; do
     if [ "$TOOL" == "axe" ]; then
         echo "Running Axe CLI on $URL with axe-source $GITHUB_ACTION_PATH/axe.js with rules: $RULE_IDS"
-        axe "$URL" --chrome-options="headless,disable-gpu,no-sandbox,incognito" --rules "$RULE_IDS" --axe-source "$GITHUB_ACTION_PATH/axe.js" --verbose --exit
+        axe "$URL" --chrome-options="headless,disable-gpu,no-sandbox,incognito" --chrome-path="/opt/hostedtoolcache/setup-chrome/chromium/136.0.7103.92/x64/chrome" --rules "$RULE_IDS" --axe-source "$GITHUB_ACTION_PATH/axe.js" --verbose --exit
     elif [ "$TOOL" == "pa11y" ]; then
         IGNORED_RULES=$(curl -s "https://accessibility-hub-be.onrender.com/ignore-pa11y-rules/$SERVICE_ID")
         echo "Running Pa11y CLI on $URL with ignored rules: $IGNORED_RULES"

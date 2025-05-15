@@ -32,6 +32,14 @@ runs:
       shell: bash
       run: axe --version
 
+    - name: Install pa11y
+      shell: bash
+      run: npm install -g pa11y
+
+    - name: Check Axe CLI Version
+      shell: bash
+      run: pa11y --version
+
     # - name: Install axe-core
     #   shell: bash
     #   run: npm install axe-core -g
@@ -73,7 +81,7 @@ runs:
       run: $GITHUB_ACTION_PATH/run-axe.sh
       shell: bash
       env:
-        SERVICE_ID: ${{ inputs.service_id }}
+        SERVICE_ID: ${{ inputs.service_id }}  
         URL: ${{ inputs.url }}
         TOOLS: ${{ inputs.tools }}
         AXE_SOURCE: $GITHUB_ACTION_PATH/axe.js

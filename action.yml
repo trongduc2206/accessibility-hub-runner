@@ -46,6 +46,7 @@ runs:
 
     - name: Setup chrome
       uses: browser-actions/setup-chrome@v1
+      id: setup-chrome
       with:
         chrome-version: 136
 
@@ -85,3 +86,4 @@ runs:
         URL: ${{ inputs.url }}
         TOOLS: ${{ inputs.tools }}
         AXE_SOURCE: $GITHUB_ACTION_PATH/axe.js
+        CHROME_PATH: ${{ steps.setup-chrome.outputs.chrome-path }}

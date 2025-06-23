@@ -54,6 +54,15 @@ runs:
       shell: bash
       run: chrome --version
 
+    - name: Setup ChromeDriver
+      uses: nanasess/setup-chromedriver@v2
+      with:
+          chromedriver-version: '136'
+
+    - name: Check Chrome Driver Version
+      shell: bash
+      run: chromedriver --version
+
     # - name: Install Chrome Driver
     #   shell: bash
     #   run: npx browser-driver-manager install chrome

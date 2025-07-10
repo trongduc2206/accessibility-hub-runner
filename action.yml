@@ -40,20 +40,20 @@ runs:
       shell: bash
       run: pa11y --version
 
-    # - name: Setup Chrome
-    #   shell: bash
-    #   run: npx browser-driver-manager install chrome
+    - name: Setup Chrome
+      shell: bash
+      run: npx browser-driver-manager install chrome
 
     # WORKING VERSION
-    - name: Setup chrome
-      uses: browser-actions/setup-chrome@v1
-      id: setup-chrome
-      with:
-        chrome-version: 138
+    # - name: Setup chrome
+    #   uses: browser-actions/setup-chrome@v1
+    #   id: setup-chrome
+    #   with:
+    #     chrome-version: 138
 
-    - name: Check Chrome Version
-      shell: bash
-      run: chrome --version
+    # - name: Check Chrome Version
+    #   shell: bash
+    #   run: chrome --version
     # WORKING VERSION
 
     # - name: Setup ChromeDriver
